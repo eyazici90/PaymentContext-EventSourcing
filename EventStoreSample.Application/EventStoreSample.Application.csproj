@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EventStoreSample.Domain\EventStoreSample.Domain.csproj" />
+    <ProjectReference Include="..\EventStoreSample.IntegrationEvents\EventStoreSample.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\Galaxy.EventStore\Galaxy.EventStore.csproj" />
+    <ProjectReference Include="..\Galaxy.FluentValidation\Galaxy.FluentValidation.csproj" />
+    <ProjectReference Include="..\Galaxy.Mapster\Galaxy.Mapster.csproj" />
+    <ProjectReference Include="..\Galaxy.RabbitMQ\Galaxy.RabbitMQ.csproj" />
+  </ItemGroup>
+
+   
+</Project>
