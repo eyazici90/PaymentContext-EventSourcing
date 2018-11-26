@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EventStoreSample.IntegrationEvents\EventStoreSample.IntegrationEvents.csproj" />
-    <ProjectReference Include="..\Galaxy.RabbitMQ\Galaxy.RabbitMQ.csproj" />
+    <ProjectReference Include="..\libs\Galaxy.RabbitMQ\Galaxy.RabbitMQ.csproj" />
   </ItemGroup>
  
 </Project>
