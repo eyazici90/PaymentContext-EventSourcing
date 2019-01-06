@@ -45,7 +45,7 @@ namespace Galaxy.EventStore
                 .ToList();
 
             notifications.ToList()
-                .ForEach(entity => entity.ClearDomainEvents());
+                .ForEach(entity => entity.ClearEvents());
 
             var tasks = domainEvents
                 .Select(async (domainEvent) =>
@@ -89,9 +89,13 @@ namespace Galaxy.EventStore
             return eventCount;
         }
 
-        public void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.Unspecified)
+        public void BeginTransaction(IUnitOfWorkOptions unitOfWorkOptions)
         {
-            
+            throw new NotImplementedException();
+        }
+        public Task BeginTransactionAsync(IUnitOfWorkOptions unitOfWorkOptions)
+        {
+            throw new NotImplementedException();
         }
 
         public bool CheckIfThereIsAvailableTransaction() => _aggregates.Values.Any();
@@ -191,6 +195,6 @@ namespace Galaxy.EventStore
             _disposed = true;
         }
 
-
+       
     }
 }
