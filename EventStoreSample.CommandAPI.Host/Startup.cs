@@ -14,6 +14,7 @@ using Galaxy.EventStore.Bootstrapper;
 using Galaxy.FluentValidation;
 using Galaxy.FluentValidation.Bootstrapper;
 using Galaxy.Mapster.Bootstrapper;
+using Galaxy.NewtonSoftJson.Bootstrapper;
 using Galaxy.RabbitMQ.Bootstrapper;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
@@ -123,6 +124,7 @@ namespace EventStoreSample.CommandAPI.Host
                            conf.HostAddress = "rabbitmq://localhost/";
                            conf.QueueName = "eventStoreSamplePub";
                        })
+                     .UseGalaxyNewtonSoftJsonSerialization()
                      .UseGalaxyMapster()
                      .UseGalaxyFluentValidation(typeof(DirectPaymentCommandValidation).Assembly);
 

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".libs", ".libs", "{569FEB66-5779-40D6-A3A2-768294FCF6F2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStoreSample.Application", "EventStoreSample.Application\EventStoreSample.Application.csproj", "{291576F6-D096-43F9-9323-94954A87C8BA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStoreSample.CommandAPI.Host", "EventStoreSample.CommandAPI.Host\EventStoreSample.CommandAPI.Host.csproj", "{01DA832B-028C-4466-BAE0-7E09B18C23EF}"
@@ -14,16 +12,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStoreSample.IntegrationEvents", "EventStoreSample.IntegrationEvents\EventStoreSample.IntegrationEvents.csproj", "{8EB4CE71-75BD-4111-94A4-F015F6375C2D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStoreSample.Listener", "EventStoreSample.Listener\EventStoreSample.Listener.csproj", "{4F784C92-3974-4C15-9A76-4B49E7118453}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galaxy", "libs\Galaxy\Galaxy.csproj", "{4706A3F5-BB64-4F78-B950-0214BD4A6C7C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galaxy.EventStore", "libs\Galaxy.EventStore\Galaxy.EventStore.csproj", "{199BB036-9DE1-4492-B967-C7DA89131953}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galaxy.Mapster", "libs\Galaxy.Mapster\Galaxy.Mapster.csproj", "{F783ED0D-85AA-418A-8710-9BE66E21DAB2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galaxy.RabbitMQ", "libs\Galaxy.RabbitMQ\Galaxy.RabbitMQ.csproj", "{5B6EA7AD-0DD3-4B48-A8CC-E85F4128427B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galaxy.FluentValidation", "libs\Galaxy.FluentValidation\Galaxy.FluentValidation.csproj", "{A64FD317-E14A-43DB-8ADF-0003EF82B65C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,36 +39,9 @@ Global
 		{4F784C92-3974-4C15-9A76-4B49E7118453}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F784C92-3974-4C15-9A76-4B49E7118453}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F784C92-3974-4C15-9A76-4B49E7118453}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4706A3F5-BB64-4F78-B950-0214BD4A6C7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4706A3F5-BB64-4F78-B950-0214BD4A6C7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4706A3F5-BB64-4F78-B950-0214BD4A6C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4706A3F5-BB64-4F78-B950-0214BD4A6C7C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{199BB036-9DE1-4492-B967-C7DA89131953}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{199BB036-9DE1-4492-B967-C7DA89131953}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{199BB036-9DE1-4492-B967-C7DA89131953}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{199BB036-9DE1-4492-B967-C7DA89131953}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F783ED0D-85AA-418A-8710-9BE66E21DAB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F783ED0D-85AA-418A-8710-9BE66E21DAB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F783ED0D-85AA-418A-8710-9BE66E21DAB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F783ED0D-85AA-418A-8710-9BE66E21DAB2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5B6EA7AD-0DD3-4B48-A8CC-E85F4128427B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B6EA7AD-0DD3-4B48-A8CC-E85F4128427B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5B6EA7AD-0DD3-4B48-A8CC-E85F4128427B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5B6EA7AD-0DD3-4B48-A8CC-E85F4128427B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A64FD317-E14A-43DB-8ADF-0003EF82B65C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A64FD317-E14A-43DB-8ADF-0003EF82B65C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A64FD317-E14A-43DB-8ADF-0003EF82B65C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A64FD317-E14A-43DB-8ADF-0003EF82B65C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{4706A3F5-BB64-4F78-B950-0214BD4A6C7C} = {569FEB66-5779-40D6-A3A2-768294FCF6F2}
-		{199BB036-9DE1-4492-B967-C7DA89131953} = {569FEB66-5779-40D6-A3A2-768294FCF6F2}
-		{F783ED0D-85AA-418A-8710-9BE66E21DAB2} = {569FEB66-5779-40D6-A3A2-768294FCF6F2}
-		{5B6EA7AD-0DD3-4B48-A8CC-E85F4128427B} = {569FEB66-5779-40D6-A3A2-768294FCF6F2}
-		{A64FD317-E14A-43DB-8ADF-0003EF82B65C} = {569FEB66-5779-40D6-A3A2-768294FCF6F2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {06F301AE-6138-4A4C-8431-2EFF2C2680D5}

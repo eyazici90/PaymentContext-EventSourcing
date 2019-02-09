@@ -1,6 +1,8 @@
-﻿using EventStoreSample.Domain.AggregatesModel.PaymentAggregate;
+﻿using EventStoreSample.Application.Dtos;
+using EventStoreSample.Domain.AggregatesModel.PaymentAggregate;
 using Galaxy.Commands;
 using Galaxy.Infrastructure;
+using Galaxy.ObjectMapping;
 using Galaxy.Repositories;
 using Galaxy.UnitOfWork;
 using MediatR;
@@ -12,11 +14,12 @@ using System.Threading.Tasks;
 
 namespace EventStoreSample.Application.Commands.Handlers
 {
-    public class DirectPaymentCommandHandler : CommandHandlerBase<PaymentTransaction, Guid>
+    public class DirectPaymentCommandHandler : CommandHandlerBase<PaymentTransaction, PaymentTransactionDto, Guid>
         , IRequestHandler<DirectPaymentCommand, bool>
     {
         public DirectPaymentCommandHandler(IUnitOfWorkAsync unitOfWorkAsync
-            , IRepositoryAsync<PaymentTransaction, Guid> aggregateRootRepository) : base(unitOfWorkAsync, aggregateRootRepository)
+            , IRepositoryAsync<PaymentTransaction, Guid> aggregateRootRepository
+            , IObjectMapper objectMapper) : base(unitOfWorkAsync, aggregateRootRepository, objectMapper)
         {
         }
 
