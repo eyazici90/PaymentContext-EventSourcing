@@ -26,6 +26,7 @@ namespace EventStoreSample.Domain.AggregatesModel.PaymentAggregate
         public string ResponseMessage { get; private set; }
 
         public int TransactionStatusId { get; private set; }
+
         public PaymenTransactionStatus PaymenTransactionStatus { get; private set; }
 
         public int TransactionTypeId { get; private set; }
@@ -45,6 +46,11 @@ namespace EventStoreSample.Domain.AggregatesModel.PaymentAggregate
 
         private PaymentTransaction(string msisdn, string orderId, DateTime transactionDateTime) : this()
         {
+            if (DateTime.Now.AddDays(-1) > transactionDateTime)
+            {
+                throw new PaymentDomainException($"Invalid transactionDateTime {transactionDateTime}");
+            }
+
             ApplyEvent(new TransactionCreatedDomainEvent(msisdn, orderId, transactionDateTime));
         }
 
@@ -64,10 +70,7 @@ namespace EventStoreSample.Domain.AggregatesModel.PaymentAggregate
 
             this.TransactionTypeId = PaymentTransactionType.DirectPaymentType.Id;
 
-            if (DateTime.Now.AddDays(-1) > @event.TransactionDateTime)
-            {
-                throw new PaymentDomainException($"Invalid transactionDateTime {@event.TransactionDateTime}");
-            }
+            this.TransactionDateTime = @event.TransactionDateTime;
         }
 
         private void When(TransactionAmountChangedDomainEvent @event)

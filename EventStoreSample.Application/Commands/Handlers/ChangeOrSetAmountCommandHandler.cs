@@ -5,6 +5,7 @@ using Galaxy.ObjectMapping;
 using Galaxy.Repositories;
 using Galaxy.UnitOfWork;
 using MediatR;
+using Optional;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,12 +27,18 @@ namespace EventStoreSample.Application.Commands.Handlers
         {
             await UpdateAsync(Guid.Parse(request.Id), async payment =>
             {
-                payment.ChangeOrSetAmountTo(
-                        Money.Create(request.Amount.Value, request.CurrencyCode.Value)
-                    );
+                payment
+                .SomeNotNull()
+                .Match(p =>
+                {
+                    p.ChangeOrSetAmountTo(
+                      Money.Create(request.Amount.Value, request.CurrencyCode.Value)
+                  );
+                }, () => throw new ArgumentNullException($"aggregate not found : {request.Id}"));
+              
             });
 
-            return await Task.FromResult(true);
+            return true;
         }
     }
 }

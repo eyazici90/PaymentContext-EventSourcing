@@ -36,7 +36,7 @@ namespace EventStoreSample.Application.Commands.Handlers
                 return paymentTransaction;
             });
 
-            return await Task.FromResult(true);
+            return true;
         }
     }
 }
