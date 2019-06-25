@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29001.49
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStoreSample.Application", "EventStoreSample.Application\EventStoreSample.Application.csproj", "{329DC196-6B34-4DBB-BAB3-D19113EDF33B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentContext.Application", "PaymentContext.Application\PaymentContext.Application.csproj", "{329DC196-6B34-4DBB-BAB3-D19113EDF33B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStoreSample.CommandAPI.Host", "EventStoreSample.CommandAPI.Host\EventStoreSample.CommandAPI.Host.csproj", "{B8EEC080-4D09-4E01-90ED-F4519E8E1B6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentContext.CommandAPI.Host", "PaymentContext.CommandAPI.Host\PaymentContext.CommandAPI.Host.csproj", "{B8EEC080-4D09-4E01-90ED-F4519E8E1B6B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStoreSample.Domain", "EventStoreSample.Domain\EventStoreSample.Domain.csproj", "{8D21132C-D5D2-4863-B5AE-F995C154DAC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentContext.Domain", "PaymentContext.Domain\PaymentContext.Domain.csproj", "{8D21132C-D5D2-4863-B5AE-F995C154DAC3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStoreSample.IntegrationEvents", "EventStoreSample.IntegrationEvents\EventStoreSample.IntegrationEvents.csproj", "{4F63E0B6-041A-43EA-96BF-B4B347266BAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentContext.IntegrationEvents", "PaymentContext.IntegrationEvents\PaymentContext.IntegrationEvents.csproj", "{4F63E0B6-041A-43EA-96BF-B4B347266BAF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStoreSample.Projections", "EventStoreSample.Projections\EventStoreSample.Projections.csproj", "{10D93F35-6029-4B5E-8BAD-6CC0AF2FD10F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentContext.Projections", "PaymentContext.Projections\PaymentContext.Projections.csproj", "{10D93F35-6029-4B5E-8BAD-6CC0AF2FD10F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStoreSample.TelemetryListener", "EventStoreSample.TelemetryListener\EventStoreSample.TelemetryListener.csproj", "{793D3FD3-67BB-43EC-915B-5DCEE25EB673}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentContext.TelemetryListener", "PaymentContext.TelemetryListener\PaymentContext.TelemetryListener.csproj", "{793D3FD3-67BB-43EC-915B-5DCEE25EB673}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
