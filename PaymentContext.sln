@@ -15,6 +15,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentContext.Projections"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentContext.TelemetryListener", "PaymentContext.TelemetryListener\PaymentContext.TelemetryListener.csproj", "{793D3FD3-67BB-43EC-915B-5DCEE25EB673}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{6E913081-18FE-4609-8D59-7E506C9D5E0D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".lib", ".lib", "{A1EB2798-01B5-45C2-82FE-99A8872B8901}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "command-side", "command-side", "{3798D4D6-3F9F-42EC-A9B1-18D2A030B31D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "read-side", "read-side", "{7041428D-F436-4FEA-8F47-7FF445694C10}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +56,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{329DC196-6B34-4DBB-BAB3-D19113EDF33B} = {3798D4D6-3F9F-42EC-A9B1-18D2A030B31D}
+		{B8EEC080-4D09-4E01-90ED-F4519E8E1B6B} = {3798D4D6-3F9F-42EC-A9B1-18D2A030B31D}
+		{8D21132C-D5D2-4863-B5AE-F995C154DAC3} = {6E913081-18FE-4609-8D59-7E506C9D5E0D}
+		{4F63E0B6-041A-43EA-96BF-B4B347266BAF} = {6E913081-18FE-4609-8D59-7E506C9D5E0D}
+		{10D93F35-6029-4B5E-8BAD-6CC0AF2FD10F} = {7041428D-F436-4FEA-8F47-7FF445694C10}
+		{793D3FD3-67BB-43EC-915B-5DCEE25EB673} = {6E913081-18FE-4609-8D59-7E506C9D5E0D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {06F301AE-6138-4A4C-8431-2EFF2C2680D5}
