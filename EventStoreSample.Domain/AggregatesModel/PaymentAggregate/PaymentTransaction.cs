@@ -1,4 +1,4 @@
-﻿using EventStoreSample.Domain.Events;
+﻿
 using EventStoreSample.Domain.Exceptions;
 using Galaxy.Domain;
 using System;
@@ -7,51 +7,46 @@ using System.Text;
 
 namespace EventStoreSample.Domain.AggregatesModel.PaymentAggregate
 {
-    public sealed class PaymentTransaction : AggregateRootEntity<Guid>
+    public sealed class PaymentTransaction : AggregateRootEntity<Guid>, ISnapshotable
     {
-        public Money Money { get; private set; }
+        public Money _money { get; private set; }
 
-        public DateTime TransactionDateTime { get; private set; }
+        public DateTime _transactionDateTime { get; private set; }
 
-        public DateTime? MerchantTransactionDateTime { get; private set; }
+        public DateTime? _merchantTransactionDateTime { get; private set; }
 
-        public string Msisdn { get; private set; }
+        public string _msisdn { get; private set; }
 
-        public string Description { get; private set; }
+        public string _description { get; private set; }
 
-        public string OrderId { get; private set; }
+        public string _orderId { get; private set; }
 
-        public string ResponseCode { get; private set; }
+        public int _transactionStatusId { get; private set; }
 
-        public string ResponseMessage { get; private set; }
+        public PaymenTransactionStatus _paymenTransactionStatus { get; private set; }
 
-        public int TransactionStatusId { get; private set; }
+        public int _transactionTypeId { get; private set; }
 
-        public PaymenTransactionStatus PaymenTransactionStatus { get; private set; }
-
-        public int TransactionTypeId { get; private set; }
-
-        public PaymentTransactionType PaymentTransactionType { get; private set; }
-
-        public int? ReferanceTransactionId { get; private set; }
-
-        public PaymentTransaction ReferanceTransaction { get; private set; }
+        public PaymentTransactionType _paymentTransactionType { get; private set; } 
 
         private PaymentTransaction()
         {
-            RegisterEvent<TransactionCreatedDomainEvent>(When);
-            RegisterEvent<TransactionAmountChangedDomainEvent>(When);
-            RegisterEvent<TransactionStatusChangedDomainEvent>(When);
+            RegisterEvent<Events.V1.TransactionCreatedDomainEvent>(When);
+            RegisterEvent<Events.V1.TransactionAmountChangedDomainEvent>(When);
+            RegisterEvent<Events.V1.TransactionStatusChangedDomainEvent>(When);
         }
 
         private PaymentTransaction(string msisdn, string orderId, DateTime transactionDateTime) : this()
         {
-            if (DateTime.Now.AddDays(-1) > transactionDateTime)
-            {
-                throw new PaymentDomainException($"Invalid transactionDateTime {transactionDateTime}");
-            }
+            this._msisdn = !string.IsNullOrWhiteSpace(msisdn) ? msisdn
+                                                   : throw new ArgumentNullException(nameof(msisdn));
+            this._orderId = !string.IsNullOrWhiteSpace(orderId) ? orderId
+                                                     : throw new ArgumentNullException(nameof(orderId));
 
-            ApplyEvent(new TransactionCreatedDomainEvent(msisdn, orderId, transactionDateTime));
+            if (DateTime.Now.AddDays(-1) > transactionDateTime)
+                throw new PaymentDomainException($"Invalid transactionDateTime {transactionDateTime}");
+            
+            ApplyEvent(new Events.V1.TransactionCreatedDomainEvent(msisdn, orderId, transactionDateTime));
         }
 
         public static PaymentTransaction Create(string msisdn, string orderId, DateTime transactionDateTime)
@@ -59,62 +54,79 @@ namespace EventStoreSample.Domain.AggregatesModel.PaymentAggregate
             return new PaymentTransaction(msisdn, orderId, transactionDateTime);
         }
 
-        private void When(TransactionCreatedDomainEvent @event)
+        public void RestoreSnapshot(object state)
         {
-            this.Msisdn = !string.IsNullOrWhiteSpace(@event.Msisdn) ? @event.Msisdn
-                                                      : throw new ArgumentNullException(nameof(@event.Msisdn));
-            this.OrderId = !string.IsNullOrWhiteSpace(@event.OrderId) ? @event.OrderId
-                                                     : throw new ArgumentNullException(nameof(@event.OrderId));
+            var snapshot = (PaymentTransactionSnapshot)state;
 
-            this.TransactionDateTime = @event.TransactionDateTime;
-
-            this.TransactionTypeId = PaymentTransactionType.DirectPaymentType.Id;
-
-            this.TransactionDateTime = @event.TransactionDateTime;
+            _transactionDateTime = snapshot.TransactionDateTime;
+            _merchantTransactionDateTime = snapshot.MerchantTransactionDateTime;
+            _msisdn = snapshot.Msisdn;
+            _description = snapshot.Description;
+            _orderId = snapshot.OrderId;
+            _money  = SetMoney(0, Convert.ToDecimal(snapshot.Amount));
         }
 
-        private void When(TransactionAmountChangedDomainEvent @event)
+        public object TakeSnapshot() => new PaymentTransactionSnapshot
         {
-            this.Money = @event.Money;
+            TransactionDateTime = this._transactionDateTime,
+            MerchantTransactionDateTime = this._merchantTransactionDateTime,
+            Msisdn = this._msisdn,
+            Description = this._description,
+            OrderId = this._orderId,
+            Amount = this._money._amount
+        };
+
+        private void When(Events.V1.TransactionCreatedDomainEvent @event)
+        {
+            this._msisdn = @event.Msisdn;
+
+            this._orderId = @event.OrderId;
+
+            this._transactionDateTime = @event.TransactionDateTime;
+
+            this._transactionTypeId = PaymentTransactionType.DirectPaymentType.Id;
         }
 
-        private void When(TransactionStatusChangedDomainEvent @event)
+        private void When(Events.V1.TransactionAmountChangedDomainEvent @event)
         {
-            this.TransactionStatusId = @event.TransactionStatusId;
+            SetMoney(0, @event.Amount);
+        }
+
+        private void When(Events.V1.TransactionStatusChangedDomainEvent @event)
+        {
+            this._transactionStatusId = @event.TransactionStatusId;
         }
         
         public PaymentTransaction RefundPaymentTyped()
         {
-            this.TransactionTypeId = PaymentTransactionType.RefundPaymentType.Id;
+            this._transactionTypeId = PaymentTransactionType.RefundPaymentType.Id;
             return this;
         }
 
         public Money SetMoney(int currencyCode, decimal amount)
         {
             var money = Money.Create(amount, currencyCode);
-            this.Money = money;
-            return this.Money;
+            this._money = money;
+            return this._money;
         }
 
         public void ChangeOrSetAmountTo(Money money)
-        {
-            // Max Daily Amount. Could get from environment!
-            if (money.Amount > 1000)
+        { 
+            if (money._amount > 1000)
             {
                 throw new PaymentDomainException($"Max daily amount exceed for this transaction {this.Id}");
-            }
-            // AggregateRoot leads all owned domain events !!!
-            ApplyEvent(new TransactionAmountChangedDomainEvent(money));
+            } 
+            ApplyEvent(new Events.V1.TransactionAmountChangedDomainEvent(money._amount.Value));
         }
 
         public void PaymentStatusSucceded()
         {
-            ApplyEvent(new TransactionStatusChangedDomainEvent(PaymenTransactionStatus.SuccessStatus.Id));
+            ApplyEvent(new Events.V1.TransactionStatusChangedDomainEvent(PaymenTransactionStatus.SuccessStatus.Id));
         }
 
         public void PaymentStatusFailed()
         {
-            ApplyEvent(new TransactionStatusChangedDomainEvent(PaymenTransactionStatus.FailStatus.Id));
-        }
+            ApplyEvent(new Events.V1.TransactionStatusChangedDomainEvent(PaymenTransactionStatus.FailStatus.Id));
+        } 
     }
 }

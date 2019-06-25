@@ -1,5 +1,4 @@
-﻿using EventStoreSample.Application.Dtos;
-using EventStoreSample.Domain.AggregatesModel.PaymentAggregate;
+﻿using EventStoreSample.Domain.AggregatesModel.PaymentAggregate;
 using Galaxy.Commands;
 using Galaxy.ObjectMapping;
 using Galaxy.Repositories;
@@ -14,7 +13,7 @@ using System.Threading.Tasks;
 namespace EventStoreSample.Application.Commands.Handlers
 {
     
-    public class RefundPaymentCommandHandler : CommandHandlerBase<PaymentTransaction, PaymentTransactionDto, Guid>
+    public class RefundPaymentCommandHandler : CommandHandlerBase<PaymentTransaction, object, Guid>
         , IRequestHandler<RefundPaymentCommand, bool>
     {
         public RefundPaymentCommandHandler(IUnitOfWorkAsync unitOfWorkAsync
@@ -36,7 +35,7 @@ namespace EventStoreSample.Application.Commands.Handlers
                 return paymentTransaction;
             });
 
-            return true;
+            return await Task.FromResult(true);
         }
     }
 }

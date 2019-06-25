@@ -1,6 +1,6 @@
-﻿using EventStoreSample.Application.Dtos;
-using EventStoreSample.Domain.AggregatesModel.PaymentAggregate;
+﻿using EventStoreSample.Domain.AggregatesModel.PaymentAggregate;
 using Galaxy.Commands;
+using Galaxy.EventStore;
 using Galaxy.ObjectMapping;
 using Galaxy.Repositories;
 using Galaxy.UnitOfWork;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace EventStoreSample.Application.Commands.Handlers
 {
-    public sealed class ChangeOrSetAmountCommandHandler : CommandHandlerBase<PaymentTransaction, PaymentTransactionDto, Guid>
+    public sealed class ChangeOrSetAmountCommandHandler : CommandHandlerBase<PaymentTransaction, object, Guid>
         , IRequestHandler<ChangeOrSetAmountCommand, bool>
     {
         public ChangeOrSetAmountCommandHandler(IUnitOfWorkAsync unitOfWorkAsync
@@ -27,18 +27,13 @@ namespace EventStoreSample.Application.Commands.Handlers
         {
             await UpdateAsync(Guid.Parse(request.Id), async payment =>
             {
-                payment
-                .SomeNotNull()
-                .Match(p =>
-                {
-                    p.ChangeOrSetAmountTo(
-                      Money.Create(request.Amount.Value, request.CurrencyCode.Value)
-                  );
-                }, () => throw new ArgumentNullException($"aggregate not found : {request.Id}"));
-              
+                payment.SomeNotNull()
+                    .Match(p => p.ChangeOrSetAmountTo(
+                        Money.Create(request.Amount.Value, request.CurrencyCode.Value)
+                    ), () => throw new AggregateNotFoundException());
             });
 
-            return true;
+            return await Task.FromResult(true);
         }
     }
 }

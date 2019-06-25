@@ -15,7 +15,7 @@ using Galaxy.FluentValidation;
 using Galaxy.FluentValidation.Bootstrapper;
 using Galaxy.Mapster.Bootstrapper;
 using Galaxy.NewtonSoftJson.Bootstrapper;
-using Galaxy.RabbitMQ.Bootstrapper;
+using Galaxy.RabbitMQ.Bootstrapper; 
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -59,10 +59,10 @@ namespace EventStoreSample.CommandAPI.Host
 
             var container = this.ConfigureGalaxy(services);
 
-            var busControl = container.Resolve<IBusControl>();
-            busControl.StartAsync()
-                .ConfigureAwait(false)
-                .GetAwaiter().GetResult();
+            //var busControl = container.Resolve<IBusControl>();
+            //busControl.StartAsync()
+            //    .ConfigureAwait(false)
+            //    .GetAwaiter().GetResult();
 
             return new AutofacServiceProvider(container);
         }
@@ -99,7 +99,8 @@ namespace EventStoreSample.CommandAPI.Host
         {
             var containerBuilder = GalaxyCoreModule.New
                  .RegisterGalaxyContainerBuilder()
-                     .UseGalaxyCore(b=> {
+                     .UseGalaxyCore(b=> 
+                     {
                          b.UseConventionalDomainEventHandlers(typeof(TransactionCreatedDomainEventHandler).Assembly);
                          b.UseConventionalCommandHandlers(typeof(DirectPaymentCommandHandler).Assembly);
 
@@ -110,21 +111,21 @@ namespace EventStoreSample.CommandAPI.Host
                             .InterceptedBy(typeof(ValidatorInterceptor))
                             .InstancePerLifetimeScope();
                      })
-                     .UseGalaxyEventStore((configs) =>
-                      {
-
-                          configs.username = "admin";
-                          configs.password = "changeit";
-                          configs.uri = "tcp://admin:changeit@localhost:1113";
-
-                      })
-                     .UseGalaxyRabbitMQ(conf => {
-                           conf.Username = "guest";
-                           conf.Password = "guest";
-                           conf.HostAddress = "rabbitmq://localhost/";
-                           conf.QueueName = "eventStoreSamplePub";
-                       })
                      .UseGalaxyNewtonSoftJsonSerialization()
+                     .UseGalaxyEventStore((configs) =>
+                      { 
+                          configs.Username = "admin";
+                          configs.Password = "changeit";
+                          configs.Uri = "tcp://admin:changeit@localhost:1113";
+                          configs.IsSnapshottingOn = true; 
+                      })
+                     .UseGalaxyRabbitMQ(conf => 
+                      {
+                          conf.Username = "guest";
+                          conf.Password = "guest";
+                          conf.HostAddress = "rabbitmq://localhost/";
+                          conf.QueueName = "eventStoreSamplePub";
+                      })
                      .UseGalaxyMapster()
                      .UseGalaxyFluentValidation(typeof(DirectPaymentCommandValidation).Assembly);
 

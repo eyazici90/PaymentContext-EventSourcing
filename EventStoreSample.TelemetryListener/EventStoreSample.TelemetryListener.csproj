@@ -19,11 +19,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Galaxy.RabbitMQ" Version="1.0.1" />
+    <PackageReference Include="Galaxy.RabbitMQ" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EventStoreSample.IntegrationEvents\EventStoreSample.IntegrationEvents.csproj" />
   </ItemGroup>
- 
+
 </Project>
