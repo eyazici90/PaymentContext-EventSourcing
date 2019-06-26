@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Galaxy.EventStore" Version="1.0.3" />
-    <PackageReference Include="Galaxy.NewtonSoftJson" Version="1.0.3" />
+    <PackageReference Include="Galaxy.EventStore" Version="1.0.5" />
+    <PackageReference Include="Galaxy.NewtonSoftJson" Version="1.0.5" />
   </ItemGroup>
 
   <ItemGroup>

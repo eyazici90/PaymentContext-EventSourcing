@@ -6,7 +6,6 @@ using System.Text;
 
 namespace PaymentContext.Application.Validations
 {
-    
     public class DirectPaymentCommandValidation : AbstractValidator<DirectPaymentCommand>
     {
         public DirectPaymentCommandValidation()

@@ -19,7 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Galaxy.RabbitMQ" Version="1.0.3" />
+    <PackageReference Include="Galaxy.RabbitMQ" Version="1.0.5" />
   </ItemGroup>
 
   <ItemGroup>
