@@ -11,10 +11,9 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace PaymentContext.Application.Commands.Handlers
-{
-    
+{ 
     public class RefundPaymentCommandHandler : CommandHandlerBase<PaymentTransactionState, object, Guid>
-        , IRequestHandler<RefundPaymentCommand, bool>
+      , IRequestHandler<RefundPaymentCommand, bool>
     {
         public RefundPaymentCommandHandler(IUnitOfWorkAsync unitOfWorkAsync
             , IRepositoryAsync<PaymentTransactionState, Guid> aggregateRootRepository
@@ -26,7 +25,7 @@ namespace PaymentContext.Application.Commands.Handlers
         {
             await AddAsync(async () =>
             {
-                var state = PaymentTransaction.Create(request.Msisdn, request.OrderId, DateTime.Now);
+                var state = PaymentTransaction.Create(Guid.NewGuid().ToString(), request.Msisdn, request.OrderId, DateTime.Now);
 
                 PaymentTransaction
                     .SetMoney(state, request.Amount.Value);
