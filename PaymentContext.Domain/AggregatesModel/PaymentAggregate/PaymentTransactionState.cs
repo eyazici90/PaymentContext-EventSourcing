@@ -115,6 +115,7 @@ namespace PaymentContext.Domain.AggregatesModel.PaymentAggregate
         private void When(Events.V1.TransactionDetailAssignedToTransactionDomainEvent @event)
         {
             var detailState = PaymentTransactionDetail.Create(this.Id, @event.Description);
+            detailState.ApplyEvent(@event);
             this._paymentTransactionDetails.Add(detailState);
         }
     }
