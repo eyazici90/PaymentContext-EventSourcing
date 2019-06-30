@@ -1,4 +1,5 @@
 ﻿using PaymentContext.Domain.Exceptions;
+using PaymentContext.Domain.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,13 +8,10 @@ namespace PaymentContext.Domain.AggregatesModel.PaymentAggregate
 {
     public static class PaymentTransaction
     {
-        public static PaymentTransactionState Create(string id, string msisdn, string orderId, DateTime transactionDateTime)
-        {
-            var state = new PaymentTransactionState(msisdn, orderId, transactionDateTime);
-            state.ApplyEvent(new Events.V1.TransactionCreatedDomainEvent(id, msisdn, orderId, transactionDateTime));
-            return state;
-        }
-
+        public static PaymentTransactionState Create(string id, string msisdn, string orderId, DateTime transactionDateTime) =>
+            StateFactory.Create(() => new PaymentTransactionState(msisdn, orderId, transactionDateTime)
+                , state => state.ApplyEvent(new Events.V1.TransactionCreatedDomainEvent(id, msisdn, orderId, transactionDateTime)));
+     
         public static void ChangeOrSetAmountTo(PaymentTransactionState state, Money money)
         {
             if (money._amount > 1000) { throw new DailyAmountExceedException(state.Id.ToString()); }
